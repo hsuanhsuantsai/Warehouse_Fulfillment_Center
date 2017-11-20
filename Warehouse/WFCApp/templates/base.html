@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <style>
+      .jumbotron {
+          background-color: #000000;
+          margin-bottom:70px;
+          color: #fff;
+          min-height: 600px;
+          padding:140px 0 140px 0;
+      }
+      .jumbotron p{
+          margin-left: 100px;
+          margin-right: 100px;
+          color:#fff;
+      }
+      .container {
+        margin-top: 100px;
+      }
+      .container-fluid {
+        margin-top: 100px;
+      }
+      .container h1 {
+        margin-bottom: 30px;
+      }
+      .custom {
+        padding-top: 50px;
+        margin-top: -50px;
+        -webkit-background-clip: content-box;
+        background-clip: content-box;
+      }
+    </style>
+    <title>Stack{% block title %}{% endblock %}</title>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          {% block home_a %}<li class="nav-item">{% endblock %}
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+          {% block qs_a %}<li class="nav-item">{% endblock %}
+            <a class="nav-link" href="{% url 'QuickStart' %}">Quick Start</a>
+          </li>
+          {% block doc_a %}<li class="nav-item">{% endblock %}
+            <a class="nav-link" href="{% url 'documentation' %}">Documentation</a>
+          </li>
+          {% if request.user.is_active %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello, {{request.user.username}}</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown01">
+                <a class="dropdown-item" href="" id="show_API">Show API</a>
+                <a class="dropdown-item" href="{% url 'settings' %}">Settings</a>
+                <a class="dropdown-item" href="{% url 'password' %}">Change password</a>
+                <a class="dropdown-item" href="{% url 'deleteAccount' %}">Delete Account</a>
+                <a class="dropdown-item" href="{% url 'logout' %}">Sign out</a>
+              </div>
+            </li>
+          {% else %}
+            {% block login_a %}<li class="nav-item">{% endblock %}
+              <a class="nav-link" href="{% url 'login' %}">Sign in</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    {% block main %}
+    {% endblock %}
+
+    <div class="container">
+      <hr>
+      <footer class="container-fluid text-center">
+        <p>&copy; MPCS 52554 - HW3</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      let apiClick = function() {
+        var link = $("#show_API")
+        link.on("click", showAPI);
+      }
+
+      let btnGetAPI = function() {
+        var link = $("#getAPI")
+        if ("{{request.user.is_active}}" == "True")
+          link.on("click", showAPI);
+      }
+
+      var showAPI = function(event) {
+        event.preventDefault();
+        alert("Your API:\n\n{{request.user.seller.sellerAPI}}");
+      }
+
+      $(apiClick);
+      $(btnGetAPI);
+    </script>
+  </body>
+</html>

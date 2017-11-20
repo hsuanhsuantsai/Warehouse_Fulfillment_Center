@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %} | Inventory{% endblock %}
+{% block main %}
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>Status</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in items %}
+            <tr>
+              <th>{{ i.sku }}</th>
+              <th>{{ i.status.description }}</th>
+              <th>{{ i.quantity }}</th>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+{% endblock %}

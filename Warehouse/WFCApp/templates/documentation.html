@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% load static %}
+{% block doc_a %}<li class="nav-item active">{% endblock %}
+{% block title %} | Documentation{% endblock %}
+
+{% block main %}
+<div class="container">
+	<div class="row content">
+		<div class="col-sm-3 sidenav">
+			<h1>Documentation</h1>
+
+			<li><a href="#signup">Sign up</a></li>
+			<li><a href="#GetAPI">Get an API</a></li>
+			<li><a href="#delete">Delete Account</a></li>
+			<li><a href="#Basic">Basic Usage</a></li>
+			<li><a href="#Orders">Place Order for Shipment</a></li>
+			<li><a href="#Jsdropin">JavaScript Drop-In</a></li>
+			<li><a href="#Notification">Publish Notifications</a></li>
+		</div>
+
+		<div class="col-sm-9">
+			<h3 class="custom" id="signup">Sign up</h3>
+				<p>
+					<h6>Three ways to sign up an account</h6>
+					<ul>
+						<li>Register a new account</li>
+						<li>Sign in with Github account</li>
+						<li>Sign in with Twitter account</li>
+					</ul>
+				</p>
+			<h3 class="custom" id="GetAPI">Get an API</h3>
+				<p>
+					<ol>
+						<li>Sign up for an account</li>
+						<li>Once logging in, click on the rightmost drop-down in the navigation bar</li>
+						<li>Click on <mark>Show API</mark></li>
+						<li><mark>It's the user's responsibility to keep the API private</mark></li>
+					</ol>
+				</p>
+			<h3 class="custom" id="delete">Delete account</h3>
+				<p>
+					<ol>
+						<li>Once logging in, click on the rightmost drop-down in the navigation bar</li>
+						<li>Click on <mark>Delete Account</mark></li>
+					</ol>
+				</p>
+			<h3 class="custom" id="Basic">Basic Usage</h3>
+				<p>
+					<ul>
+						<h6>Inventory Status</h6>
+						<li>Get general inventory status
+							<br>Method: GET <mark>https://stack-warehouse.herokuapp.com/&ltYour_API&gt/inventory</mark>
+						</li>
+						<li>Get inventory status of a specific item sku
+							<br>Method: GET <mark>https://stack-warehouse.herokuapp.com/&ltYour_API&gt/inventory/&ltitem_sku&gt</mark>
+						</li>
+						<li>Expected response in JSON format
+							<br> A list of objects with sku, status, and quantity as properties
+						</li>
+						<li> Valid Status
+							<ul>
+								<li> In Stock</li>
+								<li> Preparing for Shipment</li>
+								<li> Shipped</li>
+								<li> Returned in Good Condition</li>
+								<li> Returned in Bad Condition</li>
+							</ul>
+						</li>
+					</ul>
+
+					<ul>
+						<h6>Inventory Replenishment</h6>
+						<li> Replenish a batch of items and corresponding quantities for storage
+							<br> If the item does not exist in the inventory, a new item will be created
+							<br>Method: POST <mark>https://stack-warehouse.herokuapp.com/&ltYour_API&gt/inventory</mark>
+						</li>
+						<li> Expected request body in JSON string format
+							<br> Body should be a list of items with sku and quantity
+							<br> e.g. '[{"sku": "A123", "quantity": 100}, {"sku": "B123", "quantity": 100}, {"sku": "C123", "quantity": 100}, {"sku": "D123", "quantity": 100}, {"sku": "E123", "quantity": 100}]'
+						</li>
+						<li> Expected response in JSON format
+							<ul>
+								<li> Successful replenishment
+									<br> {"Message": "Item replenishment done"}
+								</li>
+								<li> Invalid API
+									<br> {"Message": "Invalid API!"}
+								</li>
+								<li> Empty body
+									<br> {"Message": "Please provide at least one item for replenishment!"}
+								</li>
+								<li> Reach max number of items replenished each time
+									<br> {"Message": "Please provide at most 100 items each time!"}
+								</li>
+							</ul>
+						</li>
+						<li> Easy replenishment with curl
+							<br> curl -i -X POST -d '[{"sku": "A123", "quantity": 100}, {"sku": "B123", "quantity": 100}, {"sku": "C123", "quantity": 100}, {"sku": "D123", "quantity": 100}, {"sku": "E123", "quantity": 100}]' https://stack-warehouse.herokuapp.com/api/inventory/
+						</li>
+						<li>When invalid quantity error occurs, the replenishment will be skipped</li>
+					</ul>
+				</p>
+			<h3 class="custom" id="Orders">Place Order for Shipment</h3>
+				<p>
+					<ul>
+						<li>Method: POST <mark>https://stack-warehouse.herokuapp.com/&ltYour_API&gt/orders</mark></li>
+						<li> Expected request body in JSON string format
+							<br> Body should be a list of items with sku, quantity, and address
+							<br> e.g. '[{"sku": "A123", "quantity": 100, "address": "5555 Ellis"}, {"sku": "B123", "quantity": 100, "address": "2020 Michigen Ave"}]'
+						</li>
+						<li> Expected response in JSON format
+							<ul>
+								<li> Successful placement
+									<br> {'Message': 'Your order(s) is(are) being processed!'}
+								</li>
+								<li> Invalid API
+									<br> {"Message": "Invalid API!"}
+								</li>
+								<li> Empty body
+									<br> {"Message": "Please provide at least one item for order!"}
+								</li>
+								<li> Reach max number of items each time
+									<br> {"Message": "Please provide at most 100 items each time!"}
+								</li>
+							</ul>
+						</li>
+						<li> Easy order placement with curl
+							<br> curl -i -X POST -d '[{"sku": "A123", "quantity": 100, "address": "5555 Ellis"}, {"sku": "B123", "quantity": 100, "address": "2020 Michigen Ave"}]' https://stack-warehouse.herokuapp.com/api/orders/
+						</li>
+						<li>When invalid quantity error occurs, the order will be skipped</li>
+					</ul>
+				</p>
+			<h3 class="custom" id="Jsdropin">JavaScript Drop-In</h3>
+				<p>
+					<h6>Javascript drop-in helping front-end developments with Stack</h6>
+					<ul>
+						<li>Source code available here
+							<br><a href="{% static 'inventory.js' %}">inventory.js</a>
+						</li>
+						<li>Example HTML snippet
+							<br><mark>&ltscript src="inventory.js"&gt</mark>
+						</li>
+						<li> Example usage
+							<br><mark>my_func()</mark> is the customized callback function
+							<br>Make modifications inside of my_func()
+							<xmp style="background-color: lightyellow" class="text-left">
+const api = 'Your_API';
+function my_func(items) {
+	// console.log(items);
+	//implement your desired functionality below
+	if (items.length > 0) {
+		items.forEach(obj => {
+			console.log(obj.sku);
+			console.log(obj.quantity);
+			console.log(obj.status);
+		});
+	}
+}
+
+let warehouse = new Warehouse(api);
+// Call your own callback function to manipulate the data
+// Get current inventory status of all items, leave sku argument an empty string
+warehouse.items(my_func, '');
+
+// Get current status of an item with its sku
+let sku = 'Desired sku'
+warehouse.items(my_func, sku);
+							</xmp>
+						</li>
+					</ul>
+				</p>
+			<h3 id="Notification">Publish Notifications</h3>
+				<p>
+					<h6>Get notified when status of any item is changed via registered endpoint</h6>
+					<ul>
+						<li>You can reset your endpoint in <mark>Settings</mark>, which is located in the drop-down</li>
+						<li>Notification JSON payload
+							<xmp style="background-color: lightyellow" class="text-left">
+{"Message": 'Item status changed',
+"sku": sku,
+"quantity": qty,
+"status": new status}
+							</xmp>
+						</li>
+						<li>If the endpoint is invalid, the notifications won't be fired</li>
+					</ul>
+				</p>
+		</div>
+	</div>
+</div>
+{% endblock %}

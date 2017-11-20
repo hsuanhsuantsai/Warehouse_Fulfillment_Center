@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block qs_a %}<li class="nav-item active">{% endblock %}
+{% block title %} | Quick Start{% endblock %}
+
+{% block main %}
+<div class="container">
+	<div class="row content">
+		<div class="col-sm-3 sidenav">
+			<h1>Quick Start</h1>
+
+			<li><a class="anchor" href="#GetAPI">Get an API</a></li>
+			<li><a class="anchor" href="#Status">Inventory Status</a></li>
+			<li><a href="#Replenishment">Inventory Replenishment</a></li>
+			<li><a href="#Orders">Place Order for Shipment</a></li>
+		</div>
+
+		<div class="col-sm-9">
+			<h3 class="custom" id="GetAPI">Get an API</h3>
+			<p>
+				<ol>
+					<li>Sign up for an account
+						<br>(by registering a new username or logging in with Github/Twitter accounts)
+					</li>
+					<li>Once logging in, click on the rightmost drop-down in the navigation bar</li>
+					<li>Click on <mark>Show API</mark></li>
+					<li><mark>It's the user's responsibility to keep the API private</mark></li>
+				</ol>
+			</p>
+			<h3 class="custom" id="Status">Inventory Status</h3>
+				<p>
+					<ul>
+						<h6>Get status of all items in the inventory</h6>
+						<li>Method: GET <mark>https://stack-warehouse.herokuapp.com/&ltYour_API&gt/inventory</mark> in a browser or API call</li>
+						<li>If an invalid API is entered, an error message will be returned in the response</li>
+					</ul>
+					<ul>
+						<h6>Get status of items with a specific sku in the inventory</h6>
+						<li>Method: GET <mark>https://stack-warehouse.herokuapp.com/&ltYour_API&gt/inventory/&ltitem_sku&gt</mark> in a browser or API call</li>
+						<li>Response will return data in JSON format</li>
+						<li>If no such sku, response will return an empty array</li>
+					</ul>
+				</p>
+			<h3 class="custom" id="Replenishment">Inventory Replenishment</h3>
+				<p>
+					<ul>
+						<h6>Method: POST <mark>https://stack-warehouse.herokuapp.com/&ltYour_API&gt/inventory</mark> in an API call</h6>
+						<li> Expected request body in JSON string format
+							<br> Body should be a list of items with sku and quantity
+							<br> e.g. '[{"sku": "A123", "quantity": 100}, {"sku": "B123", "quantity": 100}, {"sku": "C123", "quantity": 100}, {"sku": "D123", "quantity": 100}, {"sku": "E123", "quantity": 100}]'
+						</li>
+						<li> Easy replenishment with curl
+							<br> curl -i -X POST -d '[{"sku": "A123", "quantity": 100}, {"sku": "B123", "quantity": 100}, {"sku": "C123", "quantity": 100}, {"sku": "D123", "quantity": 100}, {"sku": "E123", "quantity": 100}]' https://stack-warehouse.herokuapp.com/api/inventory/
+						</li>
+					</ul>
+				</p>
+			<h3 class="custom" id="Orders">Place Order for Shipment</h3>
+			<p>
+				<ul>
+					<h6>Method: POST <mark>https://stack-warehouse.herokuapp.com/&ltYour_API&gt/orders</mark> in an API call</h6>
+					<li> Expected request body in JSON string format
+						<br> Body should be a list of items with sku, quantity, and address
+						<br> e.g. '[{"sku": "A123", "quantity": 100, "address": "5555 Ellis"}, {"sku": "B123", "quantity": 100, "address": "2020 Michigen Ave"}]'
+					</li>
+					<li> Easy order placement with curl
+						<br> curl -i -X POST -d '[{"sku": "A123", "quantity": 100, "address": "5555 Ellis"}, {"sku": "B123", "quantity": 100, "address": "2020 Michigen Ave"}]' https://stack-warehouse.herokuapp.com/api/orders/
+					</li>
+				</ul>
+			</p>
+		</div>
+	</div>
+</div>
+{% endblock %}

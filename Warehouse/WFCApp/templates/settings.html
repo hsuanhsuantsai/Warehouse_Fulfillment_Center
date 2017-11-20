@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %} | Delete Account{% endblock %}
+{% block main %}
+<div class="container">
+    <h1>Account Settings</h1>
+    <h3>Endpoint</h3>
+        <form action="" method="post"> {% csrf_token %}
+            <div class="form-group">
+                <label for="new_endpoint">Your current endpoint</label><br>
+                <input type="text" name="new_endpoint" placeholder="{{ endpoint }}" value="" id="new_endpoint" required/>
+            </div>
+            <input type="submit" value="Change endpoint" id="submit"/>
+        </form>
+        <hr>
+    <h3>GitHub</h3>
+        {% if github %}
+            <p>Connected as <a href="https://github.com/{{ github.extra_data.login }}/" target="_blank">{{ github.extra_data.login }}</a></p>
+        {% else %}
+            <a href="{% url 'social:begin' 'github' %}">Connect to GitHub</a>
+        {% endif %}
+    <hr>
+    <h3>Twitter</h3>
+        {% if twitter %}
+            <p>Connected as <a href="https://twitter.com/{{ twitter.extra_data.access_token.screen_name }}/" target="_blank">{{ twitter.extra_data.access_token.screen_name }}</a></p>
+        {% else %}
+            <a href="{% url 'social:begin' 'twitter' %}">Connect to Twitter</a>
+        {% endif %}
+</div>
+{% endblock %}

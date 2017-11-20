@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %} | Delete Account{% endblock %}
+{% block main %}
+<div class="container text-center">
+    <h1>Are you sure you want to delete your account?</h1>
+    <h3 style="color: red">
+    	This action is permanent.
+    </h3>
+    <h3 style="color: red">
+    	You won't be able to access your account.
+    </h3>
+    <br>
+    <br>
+	<form action="" method="post">{% csrf_token %}
+		<input type="submit" value="Delete Account" id="submit"/>
+	</form>
+</div>
+{% endblock %}

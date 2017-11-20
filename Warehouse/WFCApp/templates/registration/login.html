@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %} | Sign in{% endblock %}
+{% block login_a %}<li class="nav-item active">{% endblock %}
+
+{% block main %}
+<div class="container">
+    {% if request.user.is_active %}
+        <h1>You've already logged in!</h1>
+    {% else %}
+    	<h1>Sign in</h1>
+    	<form action="" method="post">{% csrf_token %}
+    		<div class="form-group">
+    			<label for="username">Username</label><br>
+            	<input type="text" name="username" placeholder = "username" value="" id="username" required/>
+            </div>
+            <div class="form-group">
+            	<label for="password">Password</label><br>
+            	<input type="password" name="password" placeholder = "password" value="" id="password" required/>
+            </div>
+            <input type="submit" value="Sign in" id="submit"/>
+        </form>
+        <br>
+        <a href="{% url 'register' %}">Do not have an account? Sign up here!</a>
+        <br>
+        <br>
+        <p>--OR--</p>
+        <p>
+            <a href="{% url 'social:begin' 'github' %}" class="btn btn-info">Login with GitHub</a>
+        </p>
+        <p>
+            <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-info">Login with Twitter</a>
+        </p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    {% endif %}
+	
+</div>
+{% endblock %}
