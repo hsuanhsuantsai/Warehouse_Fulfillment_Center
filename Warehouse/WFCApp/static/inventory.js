@@ -16,6 +16,12 @@ class Warehouse {
 
 	storeItems(data) {
 		let res = []
+		// if Message is in data, which means there's an error
+		// return an empty array
+		if ("Message" in data) {
+			console.log(data["Message"]);
+			return res;
+		}
 		const keyArray = Object.keys(data)
 		if (keyArray.length > 0) {
 			keyArray.forEach( key => {
