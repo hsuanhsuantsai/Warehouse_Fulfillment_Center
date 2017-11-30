@@ -1,9 +1,14 @@
 # Warehouse_Fulfillment_Center
-Web Service: Warehouse Fulfillment Center
+SaaS Web Service: Warehouse Fulfillment Center
 
 [Live Demo available here](https://stack-warehouse.herokuapp.com/)
 
 ----
+## Descriptions
+* Offers a modern, HTTP-based web service so that sellers can build their own internal tools to keep track of their warehouse activities.
+* A website that enables a seller's technical employees to sign up for a developer account, so that they can gain access to the web service.
+* API endpoints that enable developers to use the web service to store items, check status of items, and be notified of status changes of items  
+
 ## Requirements
 - [x] \(Required\) [5 points] Landing Page, Sign Up, and Documentation  
 - [x] \(Required) [5 points] Inventory Status  
