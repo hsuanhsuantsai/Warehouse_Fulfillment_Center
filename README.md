@@ -18,6 +18,10 @@ SaaS Web Service: Warehouse Fulfillment Center
 - [x] \(Optional) [10 points] Push Notifications  
 - [x] Submit Your Project with live service  
 
+## Note
+In this assignment, the only scenario of status change we will apply a push notification is when placing an order.  
+i.e. status "In Stock" -> "Preparing for Shipment"  
+
 ## Usage
 * Make sure you have .env file in your directory with the following crednetials:  
   1. SECRET_KEY
